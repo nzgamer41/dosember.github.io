@@ -217,8 +217,10 @@ async function loadStreams() {
 window.onload = loadStreams;
 </script>
 <script>
+const API = "https://api.retrostreamtracker.com";
+
 async function checkUserState() {
-    const res = await fetch("https://api.retrostreamtracker.com/check_user.php");
+    const res = await fetch(`${API}/check_user.php`, { credentials: "include" });
     const state = await res.json();
 
     const loginBtn = document.getElementById("loginBtn");
@@ -231,18 +233,23 @@ async function checkUserState() {
         return;
     }
 
-    // Logged in
     loginBtn.style.display = "none";
     logoutBtn.style.display = "inline-block";
 
-    // If not in list yet → show modal
     if (!state.in_list) {
         modal.style.display = "flex";
     }
 }
 
+// Listen for the popup closing after Twitch OAuth
+window.addEventListener("message", (e) => {
+    if (e.data?.type === "twitch-login-success") {
+        checkUserState();
+    }
+});
+
 document.getElementById("loginBtn").onclick = () => {
-    window.location = "https://api.retrostreamtracker.com/login.php";
+    window.open(`${API}/login.php`, "twitchLogin", "width=600,height=700");
 };
 
 document.getElementById("discordBtn").onclick = () => {
@@ -253,15 +260,15 @@ document.getElementById("homeBtn").onclick = () => {
     window.location = "https://retrostreamtracker.com";
 };
 
-
-document.getElementById("logoutBtn").onclick = () => {
-    window.location = "https://api.retrostreamtracker.com/logout.php"; // You need to create this
+document.getElementById("logoutBtn").onclick = async () => {
+    await fetch(`${API}/logout.php`, { credentials: "include" });
+    checkUserState();
 };
 
 document.getElementById("modalYes").onclick = async () => {
-    await fetch("https://api.retrostreamtracker.com/add_stream.php");
+    await fetch(`${API}/add_stream.php`, { credentials: "include" });
     document.getElementById("modalOverlay").style.display = "none";
-    alert("Added! Reloading…"); // Want this DOS-style too?
+    alert("Added! Reloading…");
     location.reload();
 };
 
@@ -269,7 +276,6 @@ document.getElementById("modalNo").onclick = () => {
     document.getElementById("modalOverlay").style.display = "none";
 };
 
-// Run on load
 checkUserState();
 </script>
 </body>
