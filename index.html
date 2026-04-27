@@ -127,6 +127,41 @@
         justify-content: space-between;
         margin-top: 20px;
     }
+
+      /* DOSember ASCII Art — CC-BY-SA 4.0 — based on DOSember_textart_v1.png */
+
+
+  .dosember-ascii {
+    display: inline-block;
+    line-height: 1.18;
+    letter-spacing: 0;
+    white-space: pre;
+    font-size: clamp(5px, 1.05vw, 10px);
+    font-family: 'Courier New', 'Lucida Console', monospace;
+    font-weight: bold;
+    user-select: none;
+  }
+
+  /* DOS letters — bold 3D colours */
+  .r  { color: #dd1111; text-shadow: -1px 1px 0 #550000; } /* D red */
+  .rd { color: #771111; }                                    /* D red dark shadow */
+  .y  { color: #f0cc00; text-shadow: -1px 1px 0 #554400; } /* O yellow */
+  .yd { color: #886600; }                                    /* O yellow dark */
+  .p  { color: #8833dd; text-shadow: -1px 1px 0 #2a006a; } /* S purple */
+  .pd { color: #441199; }                                    /* S purple dark */
+
+  /* ember letters — pixel/bitmap silver-grey */
+  .s  { color: #b8bcd0; text-shadow: 1px 1px 0 #1a1c24; }  /* silver */
+  .sd { color: #2e3040; }                                    /* silver dark/shadow */
+
+  .credit {
+    margin-top: 1.5em;
+    color: #333;
+    font-size: 11px;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+  .credit a { color: #555; }
   </style>
 </head>
 <body>
@@ -152,11 +187,31 @@
     </div>
 </div>
 
-<div class="ascii-border">
+<!--<div class="ascii-border">
 #############################################
 #         DOSember Stream Locator 1.2       #
 #############################################
+</div>-->
+
+<div class="dosember-ascii" role="img" aria-label="DOSember">
+<!--
+  ASCII art based on DOSember_textart_v1.png
+  Original art CC-BY-SA 4.0
+  Colours: D=red, O=yellow, S=purple, ember=silver-grey pixel font
+-->
+<span class="r">██████╗ </span><span class="y"> ██████╗ </span><span class="p">███████╗</span><span class="s">███████╗███╗   ███╗██████╗ ███████╗██████╗ </span>
+<span class="r">██╔══██╗</span><span class="y">██╔═══██╗</span><span class="p">██╔════╝</span><span class="s">██╔════╝████╗ ████║██╔══██╗██╔════╝██╔══██╗</span>
+<span class="r">██║  ██║</span><span class="y">██║   ██║</span><span class="p">███████╗</span><span class="s">█████╗  ██╔████╔██║██████╔╝█████╗  ██████╔╝</span>
+<span class="r">██║  ██║</span><span class="y">██║   ██║</span><span class="p">╚════██║</span><span class="s">██╔══╝  ██║╚██╔╝██║██╔══██╗██╔══╝  ██╔══██╗</span>
+<span class="r">██████╔╝</span><span class="y">╚██████╔╝</span><span class="p">███████║</span><span class="s">███████╗██║ ╚═╝ ██║██████╔╝███████╗██║  ██║</span>
+<span class="rd">╚═════╝ </span><span class="yd"> ╚═════╝ </span><span class="pd">╚══════╝</span><span class="sd">╚══════╝╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝</span>
 </div>
+
+<p class="credit">
+  Logo based on <a href="./DOSember_textart_v1.png" rel="noopener">DOSember_textart_v1.png</a> by Dennis Busch (<a href="https://www.dennisbusch.de">https://www.dennisbusch.de</a>) &mdash;
+  <a href="./license.txt" target="_blank" rel="noopener">CC-BY-SA 4.0</a>
+</p>
+
 
 <div class="dos-window">
   <div class="title-bar">STREAM LIST <span class="blink">_</span></div>
