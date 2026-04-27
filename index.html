@@ -258,6 +258,7 @@ async function checkUserState() {
 }
 
 window.addEventListener("message", (e) => {
+    console.log("[auth] message received:", e.origin, JSON.stringify(e.data));
     if (e.data?.type === "twitch-login-success" && e.data.token) {
         authToken.set(e.data.token);
         checkUserState();
@@ -265,11 +266,9 @@ window.addEventListener("message", (e) => {
 });
 
 document.getElementById("loginBtn").onclick = () => {
-    window.open(
-        `${API}/login.php?origin=${encodeURIComponent(location.origin)}`,
-        "twitchLogin",
-        "width=600,height=700"
-    );
+    const url = `${API}/login.php?origin=${encodeURIComponent(location.origin)}`;
+    console.log("[auth] opening popup:", url);
+    window.open(url, "twitchLogin", "width=600,height=700");
 };
 
 document.getElementById("discordBtn").onclick = () => {
