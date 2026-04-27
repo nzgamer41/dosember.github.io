@@ -220,30 +220,36 @@ window.onload = loadStreams;
 const API = "https://api.retrostreamtracker.com";
 
 async function checkUserState() {
-    const res = await fetch(`${API}/check_user.php`, { credentials: "include" });
-    const state = await res.json();
+    try {
+        const res = await fetch(`${API}/check_user.php`, { credentials: "include" });
+        const state = await res.json();
+        console.log("[auth] checkUserState:", state);
 
-    const loginBtn = document.getElementById("loginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const modal = document.getElementById("modalOverlay");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const modal = document.getElementById("modalOverlay");
 
-    if (!state.logged_in) {
-        loginBtn.style.display = "inline-block";
-        logoutBtn.style.display = "none";
-        return;
-    }
+        if (!state.logged_in) {
+            loginBtn.style.display = "inline-block";
+            logoutBtn.style.display = "none";
+            return;
+        }
 
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
 
-    if (!state.in_list) {
-        modal.style.display = "flex";
+        if (!state.in_list) {
+            modal.style.display = "flex";
+        }
+    } catch (err) {
+        console.error("[auth] checkUserState failed:", err);
     }
 }
 
 // Listen for the popup closing after Twitch OAuth
 window.addEventListener("message", (e) => {
     if (e.data?.type === "twitch-login-success") {
+        console.log("[auth] login success message received, re-checking state");
         checkUserState();
     }
 });
